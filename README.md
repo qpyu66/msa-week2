@@ -1,7 +1,19 @@
 # webflux_week2
 
+
+## 도메인 설계
+
+<p align="center">
+  <img width="460" height="300" src="./ddd1.png">
+</p>
+<p align="center">
+  <img width="460" height="300" src="./ddd2.png">
+</p>
+
+
 ## Port
 ~~~
+ web 8080
  user 8081
  course 8082
  community 8083
