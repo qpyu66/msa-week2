@@ -36,3 +36,8 @@
 |강의 생성 |/admin/create/course |
 |강의 목록 |/courses |
 |강의 세부 내용 | /course/{courseid} |
+|강의 클래스 | /course/{courseid}/lecture/{lectureid} |
+|강의 시험 |/course/{courseid}/exam |
+|강의 별점 | /course/{courseid}/review |
+|커뮤니티  | /community|
+| 커뮤니티 게시글 | /community/post/(postid) |
