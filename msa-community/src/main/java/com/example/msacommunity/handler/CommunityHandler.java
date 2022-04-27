@@ -1,6 +1,7 @@
 package com.example.msacommunity.handler;
 
 import com.example.msacommunity.domain.Community;
+import com.example.msacommunity.kafkapractice.PracticeConsumerService;
 import com.example.msacommunity.service.CommentService;
 import com.example.msacommunity.service.CommunityService;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,8 @@ public class CommunityHandler {
 
     private final CommunityService communityService;
 
+    private final PracticeConsumerService consumerService;
+
     /**
      * 게시글 작성
      * @param request 게시글 작성 내용
@@ -26,6 +29,8 @@ public class CommunityHandler {
         Mono<Community> communityMono = request.bodyToMono(Community.class)
                 .flatMap(community -> communityService.insertCommunity(community))
                 .log("CommunityMono is : ");
+        consumerService.consume("create board");
+
 
         return ServerResponse.ok()
                 .contentType(APPLICATION_JSON)
