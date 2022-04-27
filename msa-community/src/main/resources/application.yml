@@ -1,0 +1,25 @@
+server:
+  port: 8083
+
+springdoc:
+  api-docs:
+    groups:
+      enabled: true
+
+spring:
+  r2dbc:
+    url: r2dbc:h2:mem:///msa;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false
+    username: sa
+    password:
+    initialization-mode: always
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: group-so
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
