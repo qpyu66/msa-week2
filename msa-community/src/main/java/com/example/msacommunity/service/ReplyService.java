@@ -2,7 +2,7 @@ package com.example.msacommunity.service;
 
 import reactor.core.publisher.Mono;
 
-public interface CommentService {
+public interface ReplyService {
 
     // 댓글 작성
     Mono<String> insertComment(String commentId);

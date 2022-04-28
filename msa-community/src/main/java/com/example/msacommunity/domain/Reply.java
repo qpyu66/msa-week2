@@ -1,6 +1,9 @@
 package com.example.msacommunity.domain;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -8,23 +11,23 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
 
-@Table(value = "board")
+@Table(value = "reply")
+@AllArgsConstructor
 @Getter
 @Setter
 @ToString
-@AllArgsConstructor
-public class Community {
+public class Reply {
 
     @Id
-    private Integer id;
+    private Integer replyid; //댓글 아이디
 
-    private String title; //게시글 제목
-
-    private String content; //게시글 내용
-
-    private Integer visibleyn; //게시글 노출 여부
+    private Integer boardid; //게시글 아이디
 
     private Integer memberid; //작성자
+
+    private String replycontent; //댓글 내용
+
+    private Integer replyvisibleyn; //댓글 노출 여부
 
     @CreatedDate
     private LocalDateTime insertdt; //생성일

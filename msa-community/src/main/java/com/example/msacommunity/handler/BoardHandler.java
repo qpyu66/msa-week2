@@ -1,9 +1,8 @@
 package com.example.msacommunity.handler;
 
-import com.example.msacommunity.domain.Community;
-import com.example.msacommunity.kafkapractice.PracticeConsumerService;
-import com.example.msacommunity.service.CommentService;
-import com.example.msacommunity.service.CommunityService;
+import com.example.msacommunity.domain.Board;
+import com.example.msacommunity.kafka.KafkaConsumerService;
+import com.example.msacommunity.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -14,26 +13,26 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 @Component
 @RequiredArgsConstructor
-public class CommunityHandler {
+public class BoardHandler {
 
-    private final CommunityService communityService;
+    private final BoardService boardService;
 
-    private final PracticeConsumerService consumerService;
+    private final KafkaConsumerService consumerService;
 
     /**
      * 게시글 작성
      * @param request 게시글 작성 내용
      * @return 게시글 정보 저장
      */
-    public Mono<ServerResponse> insertCommunity(ServerRequest request) {
-        Mono<Community> communityMono = request.bodyToMono(Community.class)
-                .flatMap(community -> communityService.insertCommunity(community))
+    public Mono<ServerResponse> insertBoard(ServerRequest request) {
+        Mono<Board> communityMono = request.bodyToMono(Board.class)
+                .flatMap(board -> boardService.insertCommunity(board))
                 .log("CommunityMono is : ");
         consumerService.consume("create board");
 
 
         return ServerResponse.ok()
                 .contentType(APPLICATION_JSON)
-                .body(communityMono, Community.class).log("insertCommunity is : ");
+                .body(communityMono, Board.class).log("insertCommunity is : ");
     }
 }

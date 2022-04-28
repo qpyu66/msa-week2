@@ -1,4 +1,4 @@
-package com.example.msacommunity.kafkapractice;
+package com.example.msacommunity.kafka;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,10 +7,10 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PracticeProducerService {
+public class KafkaProducerService {
 
-    private static final Logger logger = LoggerFactory.getLogger(PracticeProducerService.class);
-    private static final String TOPIC = "board-topic";
+    private static final Logger logger = LoggerFactory.getLogger(KafkaProducerService.class);
+    private static final String TOPIC = "community-topic";
 
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;

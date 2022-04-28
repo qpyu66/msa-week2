@@ -1,4 +1,4 @@
-package com.example.msacommunity.kafkapractice;
+package com.example.msacommunity.kafka;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class PracticeConsumerService {
-    private final Logger logger = LoggerFactory.getLogger(PracticeConsumerService.class);
+public class KafkaConsumerService {
+    private final Logger logger = LoggerFactory.getLogger(KafkaConsumerService.class);
 
-    @KafkaListener(topics = "board-topic", groupId = "group-so")
+    @KafkaListener(topics = "community-topic", groupId = "group-so")
     public void consume(String message) {
         logger.info(String.format("#### -> Consumed message -> %s", message));
     }
