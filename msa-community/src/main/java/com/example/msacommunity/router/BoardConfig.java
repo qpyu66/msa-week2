@@ -17,9 +17,9 @@ public class BoardConfig {
     @Bean
     public RouterFunction<ServerResponse> route(BoardHandler handler) {
         return RouterFunctions
-//                .route(GET("/community/board/list").and(accept(MediaType.APPLICATION_JSON)), handler::getBoardList) // 게시판 목록
-//                .andRoute(GET("/community/board/{boardId}").and(accept(MediaType.APPLICATION_JSON)), handler::getBoard) // 게시판 열람
-                .route(POST("/community/write").and(accept(MediaType.APPLICATION_JSON)), handler::insertBoard) // 게시글 작성
+                .route(GET("/community/board/list").and(accept(MediaType.APPLICATION_JSON)), handler::getBoardList) // 게시판 목록
+                .andRoute(GET("/community/board/{boardid}").and(accept(MediaType.APPLICATION_JSON)), handler::getBoardOne) // 게시판 열람
+                .andRoute(POST("/community/write").and(accept(MediaType.APPLICATION_JSON)), handler::insertBoard) // 게시글 작성
 //                .andRoute(POST("/community/admin/board/hide").and(accept(MediaType.APPLICATION_JSON)), handler::hideArticle) // 게시글 숨김
                 ;
     }
