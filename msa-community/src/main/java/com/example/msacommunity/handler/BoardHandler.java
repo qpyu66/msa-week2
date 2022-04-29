@@ -2,6 +2,7 @@ package com.example.msacommunity.handler;
 
 import com.example.msacommunity.domain.Board;
 import com.example.msacommunity.kafka.KafkaConsumerService;
+import com.example.msacommunity.kafka.KafkaProducerService;
 import com.example.msacommunity.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +23,7 @@ import static org.springframework.web.reactive.function.server.ServerResponse.ok
 public class BoardHandler {
 
     private final BoardService boardService;
+    private final KafkaProducerService producerService;
     private final KafkaConsumerService consumerService;
 
     /**
@@ -34,7 +36,7 @@ public class BoardHandler {
         Mono<Board> boardMono = request.bodyToMono(Board.class)
                 .flatMap(board -> boardService.insertCommunity(board))
                 .log("CommunityMono is : ");
-        consumerService.consume("board list");
+        producerService.sendMessage("board list");
 
         return ok()
                 .contentType(APPLICATION_JSON)
@@ -45,9 +47,9 @@ public class BoardHandler {
     public Mono<ServerResponse> getBoardOne(ServerRequest request) {
 
         String bid = request.pathVariable("boardid");
-        consumerService.consume("board get id = "+bid);
+        producerService.sendMessage("board get id = "+bid);
 
-        return boardService.getBoardOne(request.pathVariable(bid))
+        return boardService.getBoardOne(request.pathVariable("boardid"))
                 .flatMap(book -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).bodyValue(book))
                 .switchIfEmpty(ServerResponse.notFound().build()).log("getBoardOne ");
     }
@@ -79,7 +81,8 @@ public class BoardHandler {
         Mono<Board> communityMono = request.bodyToMono(Board.class)
                 .flatMap(board -> boardService.insertCommunity(board))
                 .log("CommunityMono is : ");
-        consumerService.consume("create board");
+//        consumerService.consume("create board");
+        producerService.sendMessage("create board");
 
         return ok()
                 .contentType(APPLICATION_JSON)
